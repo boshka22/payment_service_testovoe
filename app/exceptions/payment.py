@@ -4,7 +4,6 @@ import uuid
 
 __all__ = [
     'PaymentNotFoundError',
-    'PaymentAlreadyExistsError',
     'WebhookDeliveryError',
 ]
 
@@ -19,18 +18,6 @@ class PaymentNotFoundError(Exception):
     def __init__(self, payment_id: uuid.UUID) -> None:
         self.payment_id = payment_id
         super().__init__(f'Payment {payment_id} not found.')
-
-
-class PaymentAlreadyExistsError(Exception):
-    """Исключение: платёж с таким idempotency_key уже существует.
-
-    Attributes:
-        idempotency_key: Ключ идемпотентности дубликата.
-    """
-
-    def __init__(self, idempotency_key: str) -> None:
-        self.idempotency_key = idempotency_key
-        super().__init__(f'Payment with idempotency key {idempotency_key} already exists.')
 
 
 class WebhookDeliveryError(Exception):
