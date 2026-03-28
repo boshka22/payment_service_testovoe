@@ -7,7 +7,7 @@ import uuid
 from datetime import UTC, datetime
 
 import httpx
-from faststream.rabbit import RabbitBroker, RabbitExchange, RabbitQueue
+from faststream.rabbit import ExchangeType, RabbitBroker, RabbitExchange, RabbitQueue
 
 from app.core.config import settings
 from app.core.database import async_session_maker
@@ -21,6 +21,19 @@ logger = logging.getLogger(__name__)
 
 broker = RabbitBroker(settings.rabbitmq_url)
 
+dead_exchange = RabbitExchange(
+    'payments.dead',
+    durable=True,
+    type=ExchangeType.DIRECT,
+)
+
+dead_queue = RabbitQueue(
+    'payments.dead',
+    durable=True,
+    routing_key='payments.dead',
+)
+
+
 payments_exchange = RabbitExchange('payments', durable=True)
 payments_queue = RabbitQueue(
     'payments.new',
@@ -30,7 +43,6 @@ payments_queue = RabbitQueue(
         'x-dead-letter-routing-key': 'payments.dead',
     },
 )
-dead_queue = RabbitQueue('payments.dead', durable=True)
 
 
 @broker.subscriber(payments_queue, payments_exchange)
@@ -55,9 +67,7 @@ async def process_payment(payload: dict) -> None:
     async with async_session_maker() as session:
         repo = PaymentRepository(session=session)
         await repo.update_status(
-            payment_id=payment_id,
-            status=status,
-            processed_at=datetime.now(UTC),
+            payment_id=payment_id, status=status, processed_at=datetime.now(UTC)
         )
         await session.commit()
 
