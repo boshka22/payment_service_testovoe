@@ -1,5 +1,6 @@
 """Модуль middleware для аутентификации по API ключу."""
 
+import hmac
 from typing import Any
 
 from fastapi import Request
@@ -14,10 +15,7 @@ EXCLUDED_PATHS = {'/health', '/docs', '/openapi.json', '/redoc'}
 
 
 class APIKeyMiddleware(BaseHTTPMiddleware):
-    """Middleware для проверки статического API ключа в заголовке X-API-Key.
-
-    Пропускает запросы к служебным эндпоинтам без проверки.
-    """
+    """Middleware для проверки статического API ключа в заголовке X-API-Key."""
 
     async def dispatch(self, request: Request, call_next: Any) -> Any:
         """Проверяет наличие и корректность API ключа.
@@ -32,8 +30,8 @@ class APIKeyMiddleware(BaseHTTPMiddleware):
         if request.url.path in EXCLUDED_PATHS:
             return await call_next(request)
 
-        api_key = request.headers.get('X-API-Key')
-        if api_key != settings.api_key:
+        api_key = request.headers.get('X-API-Key', '')
+        if not hmac.compare_digest(api_key, settings.api_key):
             return JSONResponse(
                 status_code=401,
                 content={'detail': 'Invalid or missing API key.'},
