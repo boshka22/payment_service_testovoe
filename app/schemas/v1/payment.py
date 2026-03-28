@@ -4,7 +4,7 @@ import uuid
 from datetime import datetime
 from decimal import Decimal
 
-from pydantic import BaseModel, ConfigDict, Field, HttpUrl, field_validator
+from pydantic import BaseModel, ConfigDict, Field, HttpUrl
 
 from app.enums import Currency
 
@@ -27,31 +27,10 @@ class PaymentCreateRequest(BaseModel):
     """
 
     amount: Decimal = Field(gt=0, decimal_places=2, description='Сумма платежа')
-    currency: str = Field(description='Валюта: RUB, USD, EUR')
+    currency: Currency = Field(description='Валюта: RUB, USD, EUR')
     description: str = Field(min_length=1, max_length=500)
     metadata: dict = Field(default_factory=dict)
     webhook_url: HttpUrl = Field(description='URL для webhook уведомления')
-
-    @field_validator('currency')
-    @classmethod
-    def validate_currency(cls, v: str) -> str:
-        """Проверяет что валюта входит в допустимый список.
-
-        Args:
-            v: Значение валюты.
-
-        Raises:
-            ValueError: Если валюта не поддерживается.
-
-        Returns:
-            str: Валидная валюта в верхнем регистре.
-        """
-        try:
-            return Currency(v.upper())
-        except ValueError:
-            raise ValueError(
-                f'Currency must be one of {[c.value for c in Currency]}',
-            ) from None
 
 
 class PaymentCreateResponse(BaseModel):
