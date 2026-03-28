@@ -10,7 +10,6 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
 from app.api.v1.payments import router as payments_router
-from app.core.database import Base, engine
 from app.exceptions.payment import PaymentNotFoundError, WebhookDeliveryError
 from app.middleware.auth import APIKeyMiddleware
 from app.workers.outbox_worker import OutboxWorker
@@ -25,7 +24,7 @@ logger = logging.getLogger(__name__)
 async def lifespan(_app: FastAPI) -> AsyncGenerator[None, None]:
     """Управляет жизненным циклом приложения.
 
-    Создаёт таблицы БД и запускает OutboxWorker при старте.
+    Запускает OutboxWorker при старте.
     Останавливает воркер при завершении.
 
     Args:
@@ -34,9 +33,6 @@ async def lifespan(_app: FastAPI) -> AsyncGenerator[None, None]:
     Yields:
         None: Передаёт управление приложению.
     """
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-
     worker = OutboxWorker()
     task = asyncio.create_task(worker.start())
     logger.info('Payment service started')
@@ -53,10 +49,51 @@ app = FastAPI(
     description='Асинхронный сервис процессинга платежей',
     version='1.0.0',
     lifespan=lifespan,
+    openapi_tags=[
+        {'name': 'payments', 'description': 'Операции с платежами'},
+        {'name': 'system', 'description': 'Системные эндпоинты'},
+    ],
 )
 
 app.add_middleware(APIKeyMiddleware)
 app.include_router(payments_router, prefix='/api/v1')
+
+
+def custom_openapi() -> dict:
+    """Генерирует кастомную OpenAPI схему с поддержкой X-API-Key.
+
+    Returns:
+        dict: OpenAPI схема с SecurityScheme для X-API-Key.
+    """
+    if app.openapi_schema:
+        return app.openapi_schema
+
+    from fastapi.openapi.utils import get_openapi
+
+    schema = get_openapi(
+        title=app.title,
+        version=app.version,
+        description=app.description,
+        routes=app.routes,
+    )
+
+    schema['components']['securitySchemes'] = {
+        'X-API-Key': {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'X-API-Key',
+        },
+    }
+
+    for path in schema['paths'].values():
+        for method in path.values():
+            method['security'] = [{'X-API-Key': []}]
+
+    app.openapi_schema = schema
+    return schema
+
+
+app.openapi = custom_openapi  # type: ignore[method-assign]
 
 
 @app.exception_handler(PaymentNotFoundError)
