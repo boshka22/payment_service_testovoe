@@ -51,6 +51,8 @@ async def process_payment(payload: dict) -> None:
 
     Эмулирует обработку (2-5 сек, 90% успех / 10% ошибка),
     обновляет статус в БД и отправляет webhook с retry логикой.
+    При повторной доставке (redelivery) — пропускает эмуляцию
+    и отправляет webhook с текущим статусом.
 
     Args:
         payload: Данные платежа из очереди.
@@ -59,6 +61,23 @@ async def process_payment(payload: dict) -> None:
     webhook_url = payload['webhook_url']
 
     logger.info(f'Processing payment {payment_id}')
+
+    async with async_session_maker() as session:
+        repo = PaymentRepository(session=session)
+        payment = await repo.get_by_id(payment_id)
+        if payment and payment.status != PaymentStatus.PENDING:
+            logger.info(
+                f'Payment {payment_id} already processed '
+                f'with status {payment.status}, skipping emulation'
+            )
+            await _send_webhook_with_retry(
+                url=webhook_url,
+                payload={
+                    'payment_id': str(payment_id),
+                    'status': str(payment.status),
+                },
+            )
+            return
 
     await asyncio.sleep(random.uniform(2, 5))
     is_success = random.random() < 0.9
@@ -70,7 +89,9 @@ async def process_payment(payload: dict) -> None:
     async with async_session_maker() as session:
         repo = PaymentRepository(session=session)
         await repo.update_status(
-            payment_id=payment_id, status=status, processed_at=datetime.now(UTC)
+            payment_id=payment_id,
+            status=status,
+            processed_at=datetime.now(UTC),
         )
         await session.commit()
 
