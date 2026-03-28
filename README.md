@@ -275,6 +275,9 @@ pre-commit run --all-files
 
 ### Миграции
 
+Миграции применяются автоматически при запуске через `entrypoint.sh`.
+
+Для разработки — если добавил новые модели:
 ```bash
 # Создать новую миграцию
 docker exec -it payment_service_api alembic revision --autogenerate -m "description"
