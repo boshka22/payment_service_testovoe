@@ -1,0 +1,102 @@
+"""Интеграционные тесты для API платёжного сервиса."""
+
+import uuid
+
+import pytest
+from httpx import ASGITransport, AsyncClient
+
+from app.main import app
+
+__all__: list[str] = []
+
+API_KEY = 'secret-api-key'
+HEADERS = {'X-API-Key': API_KEY}
+
+
+@pytest.mark.asyncio
+async def test_health() -> None:
+    """Проверяет что health эндпоинт доступен без API ключа."""
+    async with AsyncClient(
+        transport=ASGITransport(app=app),
+        base_url='http://test',
+    ) as client:
+        response = await client.get('/health')
+
+    assert response.status_code == 200
+    assert response.json()['status'] == 'ok'
+
+
+@pytest.mark.asyncio
+async def test_create_payment_unauthorized() -> None:
+    """Проверяет что запрос без API ключа возвращает 401."""
+    async with AsyncClient(
+        transport=ASGITransport(app=app),
+        base_url='http://test',
+    ) as client:
+        response = await client.post(
+            '/api/v1/payments',
+            json={
+                'amount': '100.00',
+                'currency': 'RUB',
+                'description': 'Test payment',
+                'webhook_url': 'https://example.com/webhook',
+            },
+            headers={'Idempotency-Key': str(uuid.uuid4())},
+        )
+
+    assert response.status_code == 401
+
+
+@pytest.mark.asyncio
+async def test_get_payment_not_found(client: AsyncClient) -> None:
+    """Проверяет что несуществующий платёж возвращает 404."""
+    response = await client.get(
+        f'/api/v1/payments/{uuid.uuid4()}',
+        headers=HEADERS,
+    )
+
+    assert response.status_code == 404
+
+
+@pytest.mark.asyncio
+async def test_create_payment_success(client: AsyncClient) -> None:
+    """Проверяет успешное создание платежа."""
+    response = await client.post(
+        '/api/v1/payments',
+        json={
+            'amount': '100.00',
+            'currency': 'RUB',
+            'description': 'Test payment',
+            'webhook_url': 'https://example.com/webhook',
+        },
+        headers={**HEADERS, 'Idempotency-Key': str(uuid.uuid4())},
+    )
+
+    assert response.status_code == 202
+    data = response.json()
+    assert 'payment_id' in data
+    assert data['status'] == 'pending'
+
+
+@pytest.mark.asyncio
+async def test_create_payment_idempotency(client: AsyncClient) -> None:
+    """Проверяет что повторный запрос с тем же ключом возвращает тот же платёж."""
+    idempotency_key = str(uuid.uuid4())
+    payload = {
+        'amount': '100.00',
+        'currency': 'RUB',
+        'description': 'Test payment',
+        'webhook_url': 'https://example.com/webhook',
+    }
+    headers = {**HEADERS, 'Idempotency-Key': idempotency_key}
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app),
+        base_url='http://test',
+    ) as c:
+        response1 = await c.post('/api/v1/payments', json=payload, headers=headers)
+        response2 = await c.post('/api/v1/payments', json=payload, headers=headers)
+
+    assert response1.status_code == 202
+    assert response2.status_code == 202
+    assert response1.json()['payment_id'] == response2.json()['payment_id']

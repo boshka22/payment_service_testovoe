@@ -4,16 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f4ad72bf-1e36-4f9c-b655-cbd98518a4d6" name="Changes" comment="main fix">
-      <change afterPath="$PROJECT_DIR$/Dockerfile.api" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dockerfile.consumer" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/alembic.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/alembic/README" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/alembic/env.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/alembic/script.py.mako" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/entrypoint.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="f4ad72bf-1e36-4f9c-b655-cbd98518a4d6" name="Changes" comment="alembic add">
+      <change afterPath="$PROJECT_DIR$/conftest.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/conftest.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/integration/test_api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/unit/test_payment_service.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -224,7 +219,47 @@
       <option name="project" value="LOCAL" />
       <updated>1774701099945</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="entrypoint init">
+      <option name="closed" value="true" />
+      <created>1774703115315</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1774703115315</updated>
+    </task>
+    <task id="LOCAL-00022" summary="pre - commit fix">
+      <option name="closed" value="true" />
+      <created>1774703250177</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1774703250177</updated>
+    </task>
+    <task id="LOCAL-00023" summary="docker conf files fix">
+      <option name="closed" value="true" />
+      <created>1774703268607</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1774703268607</updated>
+    </task>
+    <task id="LOCAL-00024" summary="alembic add">
+      <option name="closed" value="true" />
+      <created>1774703279099</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1774703279099</updated>
+    </task>
+    <task id="LOCAL-00025" summary="alembic add">
+      <option name="closed" value="true" />
+      <created>1774703292467</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1774703292467</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -249,6 +284,10 @@
     <MESSAGE value="alembic init" />
     <MESSAGE value="config fix" />
     <MESSAGE value="main fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="main fix" />
+    <MESSAGE value="entrypoint init" />
+    <MESSAGE value="pre - commit fix" />
+    <MESSAGE value="docker conf files fix" />
+    <MESSAGE value="alembic add" />
+    <option name="LAST_COMMIT_MESSAGE" value="alembic add" />
   </component>
 </project>
