@@ -4,7 +4,9 @@ import uuid
 from datetime import datetime
 from decimal import Decimal
 
-from pydantic import BaseModel, Field, HttpUrl, field_validator
+from pydantic import BaseModel, ConfigDict, Field, HttpUrl, field_validator
+
+from app.enums import Currency
 
 __all__ = [
     'PaymentCreateRequest',
@@ -44,10 +46,12 @@ class PaymentCreateRequest(BaseModel):
         Returns:
             str: Валидная валюта в верхнем регистре.
         """
-        allowed = {'RUB', 'USD', 'EUR'}
-        if v.upper() not in allowed:
-            raise ValueError(f'Currency must be one of {allowed}')
-        return v.upper()
+        try:
+            return Currency(v.upper())
+        except ValueError:
+            raise ValueError(
+                f'Currency must be one of {[c.value for c in Currency]}',
+            ) from None
 
 
 class PaymentCreateResponse(BaseModel):
@@ -79,6 +83,8 @@ class PaymentDetailResponse(BaseModel):
         processed_at: Дата и время обработки.
     """
 
+    model_config = ConfigDict(from_attributes=True)
+
     payment_id: uuid.UUID
     amount: Decimal
     currency: str
@@ -88,6 +94,3 @@ class PaymentDetailResponse(BaseModel):
     webhook_url: str
     created_at: datetime
     processed_at: datetime | None = None
-
-    class Config:
-        from_attributes = True

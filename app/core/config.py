@@ -1,7 +1,7 @@
 """Модуль конфигурации приложения."""
 
 from dotenv import load_dotenv
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 __all__ = ['settings']
 
@@ -23,6 +23,11 @@ class Settings(BaseSettings):
         outbox_poll_interval: Интервал опроса outbox в секундах.
     """
 
+    model_config = SettingsConfigDict(
+        env_file='.env',
+        extra='ignore',
+    )
+
     api_key: str
     database_url: str
     rabbitmq_url: str
@@ -32,10 +37,6 @@ class Settings(BaseSettings):
     webhook_timeout: int = 10
     webhook_max_attempts: int = 3
     outbox_poll_interval: int = 1
-
-    class Config:
-        env_file = '.env'
-        extra = 'ignore'
 
 
 settings = Settings()

@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f4ad72bf-1e36-4f9c-b655-cbd98518a4d6" name="Changes" comment="alembic add">
-      <change afterPath="$PROJECT_DIR$/conftest.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/conftest.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/integration/test_api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/unit/test_payment_service.py" afterDir="false" />
+    <list default="true" id="f4ad72bf-1e36-4f9c-b655-cbd98518a4d6" name="Changes" comment="unit/integration tests add">
+      <change beforePath="$PROJECT_DIR$/app/core/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/core/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/schemas/v1/payment.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/schemas/v1/payment.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -259,11 +257,18 @@
       <option name="project" value="LOCAL" />
       <updated>1774703292467</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="unit/integration tests add">
+      <option name="closed" value="true" />
+      <created>1774703702426</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1774703702426</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="init project" />
     <MESSAGE value="config, database init" />
     <MESSAGE value="models, enums init" />
     <MESSAGE value="custom exceptions init" />
@@ -288,6 +293,7 @@
     <MESSAGE value="pre - commit fix" />
     <MESSAGE value="docker conf files fix" />
     <MESSAGE value="alembic add" />
-    <option name="LAST_COMMIT_MESSAGE" value="alembic add" />
+    <MESSAGE value="unit/integration tests add" />
+    <option name="LAST_COMMIT_MESSAGE" value="unit/integration tests add" />
   </component>
 </project>
