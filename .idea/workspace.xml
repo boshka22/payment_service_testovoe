@@ -4,10 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f4ad72bf-1e36-4f9c-b655-cbd98518a4d6" name="Changes" comment="endpoints init">
-      <change afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/consumer_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/core/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/core/database.py" afterDir="false" />
+    <list default="true" id="f4ad72bf-1e36-4f9c-b655-cbd98518a4d6" name="Changes" comment="main fix">
+      <change afterPath="$PROJECT_DIR$/Dockerfile.api" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dockerfile.consumer" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/alembic.ini" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/alembic/README" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/alembic/env.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/alembic/script.py.mako" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/entrypoint.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,7 +192,39 @@
       <option name="project" value="LOCAL" />
       <updated>1774695970190</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="fix db core, mains init">
+      <option name="closed" value="true" />
+      <created>1774696811670</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1774696811670</updated>
+    </task>
+    <task id="LOCAL-00018" summary="fix gitignore">
+      <option name="closed" value="true" />
+      <created>1774697011052</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1774697011052</updated>
+    </task>
+    <task id="LOCAL-00019" summary="config fix">
+      <option name="closed" value="true" />
+      <created>1774699955507</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1774699955507</updated>
+    </task>
+    <task id="LOCAL-00020" summary="main fix">
+      <option name="closed" value="true" />
+      <created>1774701099945</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1774701099945</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -205,6 +243,12 @@
     <MESSAGE value="consumer init" />
     <MESSAGE value="worker init, core database fix" />
     <MESSAGE value="endpoints init" />
-    <option name="LAST_COMMIT_MESSAGE" value="endpoints init" />
+    <MESSAGE value="fix db core, mains init" />
+    <MESSAGE value="fix gitignore" />
+    <MESSAGE value="fix env" />
+    <MESSAGE value="alembic init" />
+    <MESSAGE value="config fix" />
+    <MESSAGE value="main fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="main fix" />
   </component>
 </project>
