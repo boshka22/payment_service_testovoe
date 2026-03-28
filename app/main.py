@@ -10,7 +10,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
 from app.api.v1.payments import router as payments_router
-from app.exceptions.payment import PaymentNotFoundError, WebhookDeliveryError
+from app.exceptions.payment import PaymentNotFoundError
 from app.middleware.auth import APIKeyMiddleware
 from app.workers.outbox_worker import OutboxWorker
 
@@ -22,17 +22,7 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI) -> AsyncGenerator[None, None]:
-    """Управляет жизненным циклом приложения.
-
-    Запускает OutboxWorker при старте.
-    Останавливает воркер при завершении.
-
-    Args:
-        _app: Экземпляр FastAPI приложения (не используется напрямую).
-
-    Yields:
-        None: Передаёт управление приложению.
-    """
+    """Управляет жизненным циклом приложения."""
     worker = OutboxWorker()
     task = asyncio.create_task(worker.start())
     logger.info('Payment service started')
@@ -41,6 +31,10 @@ async def lifespan(_app: FastAPI) -> AsyncGenerator[None, None]:
 
     worker.stop()
     task.cancel()
+    try:
+        await task
+    except asyncio.CancelledError:
+        pass
     logger.info('Payment service stopped')
 
 
@@ -112,26 +106,6 @@ async def payment_not_found_handler(
     """
     return JSONResponse(
         status_code=404,
-        content={'detail': str(exc)},
-    )
-
-
-@app.exception_handler(WebhookDeliveryError)
-async def webhook_delivery_handler(
-    _request: Request,
-    exc: WebhookDeliveryError,
-) -> JSONResponse:
-    """Обрабатывает исключение WebhookDeliveryError.
-
-    Args:
-        _request: Входящий запрос (не используется).
-        exc: Исключение ошибки доставки webhook.
-
-    Returns:
-        JSONResponse: Ответ с кодом 502.
-    """
-    return JSONResponse(
-        status_code=502,
         content={'detail': str(exc)},
     )
 
