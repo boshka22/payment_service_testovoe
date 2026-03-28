@@ -4,7 +4,9 @@ repos:
     hooks:
       - id: ruff
         args: [--fix]
+        exclude: ^alembic/
       - id: ruff-format
+        exclude: ^alembic/
 
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.10.0
@@ -16,6 +18,7 @@ repos:
           - sqlalchemy
           - types-aiofiles
         args: [--config-file=pyproject.toml]
+        exclude: ^alembic/
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
@@ -26,3 +29,4 @@ repos:
       - id: check-added-large-files
         args: [--maxkb=500]
       - id: debug-statements
+        exclude: ^alembic/
