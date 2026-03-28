@@ -64,6 +64,9 @@ async def process_payment(payload: dict) -> None:
     is_success = random.random() < 0.9
     status = PaymentStatus.SUCCEEDED if is_success else PaymentStatus.FAILED
 
+    # TODO: для продакшена статус обновлять только после успешной доставки webhook
+    # или вынести webhook доставку в отдельную очередь чтобы избежать
+    # повторной обработки платежа при NACK после неудачного webhook
     async with async_session_maker() as session:
         repo = PaymentRepository(session=session)
         await repo.update_status(
