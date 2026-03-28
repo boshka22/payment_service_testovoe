@@ -46,7 +46,11 @@ def get_payment_service(
 )
 async def create_payment(
     data: PaymentCreateRequest,
-    idempotency_key: str = Header(alias='Idempotency-Key'),
+    idempotency_key: str = Header(
+        alias='Idempotency-Key',
+        min_length=1,
+        max_length=255,
+    ),
     service: PaymentService = Depends(get_payment_service),
 ) -> PaymentCreateResponse:
     """Создаёт новый платёж.
