@@ -65,7 +65,7 @@ async def test_create_payment_success(client: AsyncClient) -> None:
     assert response.status_code == 202
     data = response.json()
     assert 'payment_id' in data
-    assert data['status'] == 'PENDING'
+    assert data['status'] == 'pending'
 
 
 @pytest.mark.asyncio
