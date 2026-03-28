@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f4ad72bf-1e36-4f9c-b655-cbd98518a4d6" name="Changes" comment="services payment init">
-      <change afterPath="$PROJECT_DIR$/app/consumer/payment_consumer.py" afterDir="false" />
+    <list default="true" id="f4ad72bf-1e36-4f9c-b655-cbd98518a4d6" name="Changes" comment="consumer init">
+      <change afterPath="$PROJECT_DIR$/app/workers/outbox_worker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/core/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/core/database.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,7 +161,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774694859298</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="consumer init">
+      <option name="closed" value="true" />
+      <created>1774695237119</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1774695237119</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -176,6 +185,7 @@
     <MESSAGE value="pre-commit fix, repo fix" />
     <MESSAGE value=" repo outbox init" />
     <MESSAGE value="services payment init" />
-    <option name="LAST_COMMIT_MESSAGE" value="services payment init" />
+    <MESSAGE value="consumer init" />
+    <option name="LAST_COMMIT_MESSAGE" value="consumer init" />
   </component>
 </project>
