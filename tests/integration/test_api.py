@@ -100,3 +100,50 @@ async def test_create_payment_idempotency(client: AsyncClient) -> None:
     assert response1.status_code == 202
     assert response2.status_code == 202
     assert response1.json()['payment_id'] == response2.json()['payment_id']
+
+
+@pytest.mark.asyncio
+async def test_create_payment_invalid_currency(client: AsyncClient) -> None:
+    """Проверяет что неверная валюта возвращает 422."""
+    response = await client.post(
+        '/api/v1/payments',
+        json={
+            'amount': '100.00',
+            'currency': 'INVALID',
+            'description': 'Test',
+            'webhook_url': 'https://example.com/webhook',
+        },
+        headers={'Idempotency-Key': str(uuid.uuid4())},
+    )
+    assert response.status_code == 422
+
+
+@pytest.mark.asyncio
+async def test_create_payment_negative_amount(client: AsyncClient) -> None:
+    """Проверяет что отрицательная сумма возвращает 422."""
+    response = await client.post(
+        '/api/v1/payments',
+        json={
+            'amount': '-100.00',
+            'currency': 'RUB',
+            'description': 'Test',
+            'webhook_url': 'https://example.com/webhook',
+        },
+        headers={'Idempotency-Key': str(uuid.uuid4())},
+    )
+    assert response.status_code == 422
+
+
+@pytest.mark.asyncio
+async def test_create_payment_missing_idempotency_key(client: AsyncClient) -> None:
+    """Проверяет что отсутствие Idempotency-Key возвращает 422."""
+    response = await client.post(
+        '/api/v1/payments',
+        json={
+            'amount': '100.00',
+            'currency': 'RUB',
+            'description': 'Test',
+            'webhook_url': 'https://example.com/webhook',
+        },
+    )
+    assert response.status_code == 422

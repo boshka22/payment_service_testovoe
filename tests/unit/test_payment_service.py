@@ -36,6 +36,23 @@ def payment_service(mock_session: AsyncMock) -> PaymentService:
 
 
 @pytest.mark.asyncio
+async def test_get_by_id_found(payment_service: PaymentService) -> None:
+    """Проверяет что платёж возвращается если найден."""
+    payment_id = uuid.uuid4()
+    existing_payment = MagicMock()
+    existing_payment.id_ = payment_id
+
+    with patch.object(
+        payment_service._payment_repo,
+        'get_by_id',
+        new=AsyncMock(return_value=existing_payment),
+    ):
+        result = await payment_service.get_by_id(payment_id=payment_id)
+
+    assert result == existing_payment
+
+
+@pytest.mark.asyncio
 async def test_get_by_id_not_found(payment_service: PaymentService) -> None:
     """Проверяет что PaymentNotFoundError выбрасывается если платёж не найден."""
     payment_id = uuid.uuid4()
