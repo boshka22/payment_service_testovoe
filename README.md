@@ -250,11 +250,17 @@ payment_service/
 
 ### Запуск тестов
 
+Тесты запускаются локально — testcontainers автоматически поднимает PostgreSQL контейнер через Docker.
+
+**Требования:** Docker должен быть запущен, Python с зависимостями установлен.
 ```bash
-# Все тесты (testcontainers автоматически поднимет PostgreSQL)
+# Установи зависимости
+pip install -r requirements.txt
+
+# Запусти все тесты
 pytest tests/ -v
 
-# Только юнит тесты
+# Только юнит тесты (без Docker)
 pytest tests/unit/ -v
 ```
 
