@@ -33,7 +33,7 @@ class BaseRepository(Generic[ModelT]):
         Returns:
             ModelT: Сохранённая и обновлённая модель.
         """
-        self._session.add(model)  # type: ignore[arg-type]
+        self._session.add(model)
         await self._session.flush()
-        await self._session.refresh(model)  # type: ignore[arg-type]
+        await self._session.refresh(model)
         return model
