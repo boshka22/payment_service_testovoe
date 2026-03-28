@@ -236,7 +236,7 @@ payment_service/
 │   │   └── test_payment_service.py
 │   └── integration/
 │       ├── test_api.py
-│       └── test_repository.py (TODO)
+│      
 ├── consumer_main.py              # точка входа consumer
 ├── entrypoint.sh                 # миграции + запуск API
 ├── docker-compose.yml
