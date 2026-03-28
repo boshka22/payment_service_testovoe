@@ -4,25 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f4ad72bf-1e36-4f9c-b655-cbd98518a4d6" name="Changes" comment="schema init">
-      <change afterPath="$PROJECT_DIR$/.pre-commit-config.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/repositories/payment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/payment_testovoe.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/payment_testovoe.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/core/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/core/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/core/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/core/database.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/database/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/database/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/enums.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/enums.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/exceptions/payment.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/exceptions/payment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/middleware/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/middleware/auth.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/schemas/v1/payment.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/schemas/v1/payment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+    <list default="true" id="f4ad72bf-1e36-4f9c-b655-cbd98518a4d6" name="Changes" comment="pre-commit fix, repo fix">
+      <change afterPath="$PROJECT_DIR$/app/repositories/outbox.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +104,39 @@
       <option name="project" value="LOCAL" />
       <updated>1774693771904</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="pre-commit hooks init">
+      <option name="closed" value="true" />
+      <created>1774694287423</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1774694287423</updated>
+    </task>
+    <task id="LOCAL-00008" summary="linters mistakes fix">
+      <option name="closed" value="true" />
+      <created>1774694328523</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1774694328523</updated>
+    </task>
+    <task id="LOCAL-00009" summary="repo init">
+      <option name="closed" value="true" />
+      <created>1774694476870</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1774694476870</updated>
+    </task>
+    <task id="LOCAL-00010" summary="pre-commit fix, repo fix">
+      <option name="closed" value="true" />
+      <created>1774694664018</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1774694664018</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -131,6 +146,10 @@
     <MESSAGE value="custom exceptions init" />
     <MESSAGE value="auth init" />
     <MESSAGE value="schema init" />
-    <option name="LAST_COMMIT_MESSAGE" value="schema init" />
+    <MESSAGE value="pre-commit hooks init" />
+    <MESSAGE value="linters mistakes fix" />
+    <MESSAGE value="repo init" />
+    <MESSAGE value="pre-commit fix, repo fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="pre-commit fix, repo fix" />
   </component>
 </project>
