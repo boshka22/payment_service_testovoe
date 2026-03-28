@@ -3,7 +3,9 @@
 import uuid
 
 import pytest
-from httpx import AsyncClient
+from httpx import ASGITransport, AsyncClient
+
+from app.main import app
 
 __all__: list[str] = []
 
@@ -19,10 +21,6 @@ async def test_health(client: AsyncClient) -> None:
 @pytest.mark.asyncio
 async def test_create_payment_unauthorized() -> None:
     """Проверяет что запрос без API ключа возвращает 401."""
-    from httpx import ASGITransport, AsyncClient
-
-    from app.main import app
-
     async with AsyncClient(
         transport=ASGITransport(app=app),
         base_url='http://test',
